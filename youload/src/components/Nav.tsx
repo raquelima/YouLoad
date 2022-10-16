@@ -6,9 +6,16 @@ const Nav = (): JSX.Element => {
     <Box
       sx={{
         height: '59px',
-        backgroundColor: 'black',
+        backgroundColor: '#12232E',
       }}
-    ></Box>
+    >
+      <Box
+        component='img'
+        sx={{ height: 43, pt: 1, pl: 1 }}
+        alt='youLoad logo'
+        src={require('../images/logo.png')}
+      />
+    </Box>
   )
 }
 
