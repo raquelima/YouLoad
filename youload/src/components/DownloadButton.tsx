@@ -54,17 +54,34 @@ const DownloadButton = ({ title, options }: ButtonArgs): JSX.Element => {
         ref={anchorRef}
         aria-label="split button"
         sx={{ margin: 2 }}>
-        <Button onClick={handleClick} sx={{ backgroundColor: '#12232E' }}>
+       <Button
+          onClick={handleClick}
+          sx={{
+            backgroundColor: '#12232E',
+            '&:hover': {
+              backgroundColor: 'ivory',
+              color: '#12232E',
+            },
+          }}
+        >
           {title}
         </Button>
         <Button
-          sx={{ backgroundColor: 'ivory', color: '#12232E' }}
-          size="small"
+          sx={{
+            backgroundColor: 'ivory',
+            color: '#12232E',
+            '&:hover': {
+              backgroundColor: '#12232E',
+              color: 'ivory',
+            },
+          }}
+          size='small'
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
-          aria-label="select strategy"
-          aria-haspopup="menu"
-          onClick={handleToggle}>
+          aria-label='select strategy'
+          aria-haspopup='menu'
+          onClick={handleToggle}
+        >
           {options[selectedIndex]}
           <ArrowDropDownIcon />
         </Button>
