@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
+import { YoutubeCard } from './YoutubeCard'
 
 const Main = (): JSX.Element => {
   return (
@@ -26,6 +27,7 @@ const Main = (): JSX.Element => {
           <SearchIcon />
         </Button>
       </Box>
+      <YoutubeCard />
     </Box>
   )
 }
