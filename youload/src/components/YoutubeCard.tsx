@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { DownloadButton } from './DownloadButton';
 const YoutubeCard = (): JSX.Element => {
   return (
     <Card sx={{ display: 'flex' }}>
@@ -24,6 +25,10 @@ const YoutubeCard = (): JSX.Element => {
             Mac Miller
           </Typography>
         </CardContent>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <DownloadButton title="Audio" options={['MP3', 'FLAC', 'WAV']} />
+          <DownloadButton title="Video" options={['MP4', 'MOV', 'FLV']} />
+        </Box>
       </Box>
     </Card>
   );
