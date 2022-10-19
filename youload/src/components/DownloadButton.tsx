@@ -20,8 +20,11 @@ const DownloadButton = ({ title, options }: ButtonArgs): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleClick = () => {
-    // download function
+    // download function-
     console.info(`You clicked ${options[selectedIndex]}`);
+    const link = document.createElement('a');
+    link.href = `//127.0.0.1:8000/downloadVideo?url=sd&format=${options[selectedIndex]}`;
+    link.click();
   };
 
   const handleMenuItemClick = (
