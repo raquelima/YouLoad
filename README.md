@@ -12,7 +12,7 @@ py -mpip install --upgrade youtube-dl
 ffmpeg on your pc ([Download FFmpeg](https://ffmpeg.org/download.html))
 
 ## enpoints
-http://127.0.0.1:8000/videoInforamtaion This endpoint takes a url and answers with the following videon Informations:
+http://127.0.0.1:8000/videoInformations This endpoint takes a url and answers with the following videon Informations:
 videoTile, channel, videoUrl, thumbnail
 
 Params:
@@ -20,7 +20,7 @@ url
 
 Example:
 
-http://127.0.0.1:8000/videoInforamtaions?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DeME0jNxgv-I%26ab_channel%3DBeyondFireship
+http://127.0.0.1:8000/videoInformations?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DeME0jNxgv-I%26ab_channel%3DBeyondFireship
 
 Output:
 
