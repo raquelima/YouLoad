@@ -28,6 +28,34 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+@app.get("/videoInforamtaions")
+def read_root(url: str):
+    ydl = youtube_dl.YoutubeDL({})
+
+    with ydl:
+        result = ydl.extract_info(
+            url,
+            download=False 
+        )
+
+    if 'entries' in result:
+        video = result['entries'][0]
+    else:
+        video = result
+
+    videoTitle = video.get("title", None)
+    channel = video.get("channel", None)
+    videoUrl = 'http://www.youtube.com/watch?v=' + video.get("id", None)
+    thumbnail = video.get("thumbnails", None)[0].get('url', None)
+
+    return {
+        'videoTitle': videoTitle,
+        'channel': channel,
+        'videoUrl': videoUrl,
+        'thumbnail': thumbnail
+    }
+        
+
 @app.get("/downloadVideo")
 def read_root(url: str, format: str):
     out_name = "download/output." + format
