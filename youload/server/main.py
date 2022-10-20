@@ -32,28 +32,31 @@ app.add_middleware(
 def read_root(url: str):
     ydl = youtube_dl.YoutubeDL({})
 
-    with ydl:
-        result = ydl.extract_info(
-            url,
-            download=False 
-        )
+    try:
+        with ydl:
+            result = ydl.extract_info(
+                url,
+                download=False 
+            )
 
-    if 'entries' in result:
-        video = result['entries'][0]
-    else:
-        video = result
+        if 'entries' in result:
+            video = result['entries'][0]
+        else:
+            video = result
 
-    videoTitle = video.get("title", None)
-    channel = video.get("channel", None)
-    videoUrl = 'http://www.youtube.com/watch?v=' + video.get("id", None)
-    thumbnail = video.get("thumbnails", None)[0].get('url', None)
+        videoTitle = video.get("title", None)
+        channel = video.get("channel", None)
+        videoUrl = 'http://www.youtube.com/watch?v=' + video.get("id", None)
+        thumbnail = video.get("thumbnails", None)[0].get('url', None)
 
-    return {
-        'videoTitle': videoTitle,
-        'channel': channel,
-        'videoUrl': videoUrl,
-        'thumbnail': thumbnail
-    }
+        return {
+            'videoTitle': videoTitle,
+            'channel': channel,
+            'videoUrl': videoUrl,
+            'thumbnail': thumbnail
+        }
+    except:
+        return "an error occurred"
         
 
 @app.get("/downloadVideo")
