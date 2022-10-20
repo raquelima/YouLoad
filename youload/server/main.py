@@ -79,3 +79,27 @@ def read_root(url: str, format: str):
     ff.run()
 
     return FileResponse(out_name, filename="downloadedVideo." + format)
+
+@app.get("/downloadAudio")
+def read_root(url: str, format: str):
+    out_name = "download/output." + format
+    if os.path.exists("download/input.mp4"):
+      os.remove("download/input.mp4")
+
+    if os.path.exists(out_name):
+          os.remove(out_name)
+    ydl_opts = {
+        'format': 'bestaudio/audio',
+        'outtmpl': 'download/input.mp3',
+    }
+    
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+    
+    ff = ffmpy.FFmpeg(
+        inputs={ydl_opts['outtmpl']: None},
+        outputs={out_name: None}
+    )
+    ff.run()
+
+    return FileResponse(out_name, filename="downloadedAudio." + format)
