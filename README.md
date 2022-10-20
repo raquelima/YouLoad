@@ -44,5 +44,8 @@ Output:
 
 Downloads video
 
+# Start backend
+uvicorn main:app --reload
+
 
 
