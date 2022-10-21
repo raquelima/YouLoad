@@ -12,9 +12,10 @@ import MenuList from '@mui/material/MenuList';
 interface ButtonArgs {
   title: string;
   options: string[];
+  url: string
 }
 
-const DownloadButton = ({ title, options }: ButtonArgs): JSX.Element => {
+const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -23,7 +24,7 @@ const DownloadButton = ({ title, options }: ButtonArgs): JSX.Element => {
     // download function-
     console.info(`You clicked ${options[selectedIndex]}`);
     const link = document.createElement('a');
-    link.href = `//127.0.0.1:8000/downloadVideo?url=sd&format=${options[selectedIndex]}`;
+    link.href = `//127.0.0.1:8000/downloadVideo?url=${url}&format=${options[selectedIndex]}`;
     link.click();
   };
 
