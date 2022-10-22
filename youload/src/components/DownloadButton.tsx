@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react'
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -19,13 +19,25 @@ const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
   const handleClick = () => {
-    // download function-
-    console.info(`You clicked ${options[selectedIndex]}`);
-    const link = document.createElement('a');
-    link.href = `//127.0.0.1:8000/downloadVideo?url=${url}&format=${options[selectedIndex]}`;
-    link.click();
+    fetch(`//127.0.0.1:8000/downloadVideo?url=${url}&format=${options[selectedIndex]}`)
+			.then(response => {
+				response.blob().then(blob => {
+					const url = window.URL.createObjectURL(blob);
+					const a = document.createElement('a');
+					a.href = url;
+					a.download = `employees.${options[selectedIndex]}`;
+					a.click();
+          setSuccess('Video successfully downloaded')
+
+				});
+		}).catch(function() {
+      setError('Could not download video')
+    });;
+    
   };
 
   const handleMenuItemClick = (
