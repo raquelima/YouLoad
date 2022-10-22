@@ -10,7 +10,6 @@ export interface Informations {
   channel: string,
   videoUrl: string,
   thumbnail: string,
-  error: boolean
 }
 
 export interface VideoInformations{
