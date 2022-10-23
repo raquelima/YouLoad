@@ -13,29 +13,32 @@ interface ButtonArgs {
   options: string[];
   url: string,
   filename: string,
-  updateSuccess: (args: string) => void
-  updateError: (args: string) => void
+  updateSuccess: (args: string) => void,
+  updateError: (args: string) => void,
+  updateOnLoad: (args: boolean) => void
 }
-
-const VideoButton = ({ options, url, filename, updateSuccess, updateError }: ButtonArgs): JSX.Element => {
+const VideoButton: React.FC<ButtonArgs> = (props): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleClick = () => {
-    fetch(`//127.0.0.1:8000/downloadVideo?url=${url}&format=${options[selectedIndex]}`)
+    props.updateOnLoad(true);
+    fetch(`//127.0.0.1:8000/downloadVideo?url=${props.url}&format=${props.options[selectedIndex]}`)
 			.then(response => {
 				response.blob().then(blob => {
 					const url = window.URL.createObjectURL(blob);
 					const a = document.createElement('a');
 					a.href = url;
-					a.download = `${filename}.${options[selectedIndex]}`;
+					a.download = `${props.filename}.${props.options[selectedIndex]}`;
 					a.click();
-          updateSuccess('Video successfully downloaded')
+          props.updateOnLoad(false);
+          props.updateSuccess('Video successfully downloaded')
 
 				});
 		}).catch(function(error) {
-      updateError(`${error}`)
+      props.updateOnLoad(false);
+      props.updateError(`${error}`)
     });
     
   };
@@ -98,7 +101,7 @@ const VideoButton = ({ options, url, filename, updateSuccess, updateError }: But
           aria-haspopup='menu'
           onClick={handleToggle}
         >
-          {options[selectedIndex]}
+          {props.options[selectedIndex]}
           <ArrowDropDownIcon />
         </Button>
       </ButtonGroup>
@@ -122,7 +125,7 @@ const VideoButton = ({ options, url, filename, updateSuccess, updateError }: But
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {options.map((option, index) => (
+                  {props.options.map((option, index) => (
                     <MenuItem
                       key={option}
                       selected={index === selectedIndex}
