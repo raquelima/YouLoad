@@ -12,11 +12,12 @@ import MenuList from '@mui/material/MenuList';
 interface ButtonArgs {
   options: string[];
   url: string,
+  filename: string,
   updateSuccess: (args: string) => void
   updateError: (args: string) => void
 }
 
-const VideoButton = ({ options, url, updateSuccess, updateError }: ButtonArgs): JSX.Element => {
+const VideoButton = ({ options, url, filename, updateSuccess, updateError }: ButtonArgs): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -28,13 +29,13 @@ const VideoButton = ({ options, url, updateSuccess, updateError }: ButtonArgs): 
 					const url = window.URL.createObjectURL(blob);
 					const a = document.createElement('a');
 					a.href = url;
-					a.download = `employees.${options[selectedIndex]}`;
+					a.download = `${filename}.${options[selectedIndex]}`;
 					a.click();
-          updateSuccess('Audio successfully downloaded')
+          updateSuccess('Video successfully downloaded')
 
 				});
 		}).catch(function() {
-      updateError('Audio could not be dowloaded')
+      updateError('Video could not be dowloaded')
     });
     
   };

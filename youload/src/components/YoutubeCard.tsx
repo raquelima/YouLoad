@@ -38,8 +38,8 @@ const YoutubeCard: React.FC<Informations> = ( props ) => {
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <AudioButton options={['MP3', 'FLAC', 'WAV']} url={props.videoUrl} updateSuccess={props.updateSuccess} updateError={props.updateError} />
-          <VideoButton options={['MP4', 'MOV', 'FLV']} url={props.videoUrl} updateSuccess={props.updateSuccess} updateError={props.updateError}/>
+          <AudioButton options={['MP3', 'FLAC', 'WAV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError} />
+          <VideoButton options={['MP4', 'MOV', 'FLV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError}/>
         </Box>
       </Box>
     </Card>
