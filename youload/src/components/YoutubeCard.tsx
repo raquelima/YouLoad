@@ -18,7 +18,7 @@ export interface Informations {
 
 const YoutubeCard: React.FC<Informations> = ( props ) => {
   return (
-    <Card sx={{ display: 'flex' }}>
+    <Card sx={{ display: 'flex', widht: '80%' }}>
       <CardMedia
         component="img"
         sx={{ width: 151 }}

@@ -6,7 +6,32 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: ivory;
+  overflow-x: hidden;
 }
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 500px;
+}
+
+.MuiAlert-message {
+  width: 700px;
+}
+
+
+
+@media (max-width: 600px) {
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    width: 100%;
+  }
+  .css-70qvj9 {
+    flex-direction: column;
+  }
+  .MuiAlert-message {
+    width: 100%;
+  }
+
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

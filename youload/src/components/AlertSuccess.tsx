@@ -13,7 +13,7 @@ const AlertSuccess = ({success}:AlertArgs): JSX.Element => {
   const [open, setOpen] = React.useState(true)
 
   return (
-    <Box sx={{ width: '800px' }}>
+    <Box>
       <Collapse in={open}>
         <Alert
           severity='success'

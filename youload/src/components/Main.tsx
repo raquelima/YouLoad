@@ -80,9 +80,9 @@ const Main = (): JSX.Element => {
           alt='youLoad logo'
           src={require('../images/banner.png')}
         />
-        <Box sx={{ display: 'flex', alignItems: 'center', margin: '80px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', margin: '80px 0' }}>
           <TextField
-            sx={{ width: '570px', backgroundColor: 'white' }}
+            sx={{ backgroundColor: 'white' }}
             size='small'
             onChange={handleChange}
             placeholder='Enter Youtube URL'
