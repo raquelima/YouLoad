@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { YoutubeCard } from './YoutubeCard'
 import { AlertError } from './AlertError'
 import { AlertSuccess } from './AlertSuccess'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Main = (): JSX.Element => {
   const [url, setUrl] = useState('')
@@ -17,6 +18,7 @@ const Main = (): JSX.Element => {
   })
   const [parentError, setParentError] = useState('')
   const [parentSuccess, setParentSuccess] = useState('')
+  const [onLoad, setOnLoad] = useState(false)
 
   const updateSuccess = (success: string) => {
     setParentError('')
@@ -26,6 +28,10 @@ const Main = (): JSX.Element => {
   const updateError = (error: string) => {
     setParentSuccess('')
     setParentError(error)
+  }
+
+  const updateOnLoad = (state: boolean) => {
+    setOnLoad(state)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,17 +47,20 @@ const Main = (): JSX.Element => {
     })
     setParentError('')
     setParentSuccess('')
+    setOnLoad(true)
 
     fetch(`http://127.0.0.1:8000/videoInformation?url=${url}`)
       .then(async function (res) {
         if (res.ok) {
           setParentSuccess('Video Found')
+          setOnLoad(false)
           return setVideoInformation(await res.json())
         }
-
+        setOnLoad(false)
         throw new Error('Video not found')
       })
       .catch(function (error) {
+        setOnLoad(false)
         setParentError(`${error}`)
       })
   }
@@ -96,6 +105,7 @@ const Main = (): JSX.Element => {
             <SearchIcon />
           </Button>
         </Box>
+        {onLoad && <Box sx={{ marginBottom: '30px' }}><CircularProgress /></Box>}
         {videoInformation.videoTitle && (
           <YoutubeCard
             videoTitle={videoInformation.videoTitle}
@@ -104,6 +114,7 @@ const Main = (): JSX.Element => {
             thumbnail={videoInformation.thumbnail}
             updateSuccess={updateSuccess}
             updateError={updateError}
+            updateOnLoad={updateOnLoad}
           />
         )}
       </Box>

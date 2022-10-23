@@ -13,7 +13,8 @@ export interface Informations {
   videoUrl: string,
   thumbnail: string,
   updateSuccess: (args: string) => void,
-  updateError: (args: string) => void
+  updateError: (args: string) => void,
+  updateOnLoad: (args: boolean) => void
 }
 
 const YoutubeCard: React.FC<Informations> = ( props ) => {
@@ -38,8 +39,8 @@ const YoutubeCard: React.FC<Informations> = ( props ) => {
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <AudioButton options={['MP3', 'FLAC', 'WAV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError} />
-          <VideoButton options={['MP4', 'MOV', 'FLV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError}/>
+          <AudioButton options={['MP3', 'FLAC', 'WAV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError} updateOnLoad={props.updateOnLoad}/>
+          <VideoButton options={['MP4', 'MOV', 'FLV']} url={props.videoUrl} filename={props.videoTitle} updateSuccess={props.updateSuccess} updateError={props.updateError} updateOnLoad={props.updateOnLoad}/>
         </Box>
       </Box>
     </Card>
