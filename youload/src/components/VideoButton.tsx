@@ -34,8 +34,8 @@ const VideoButton = ({ options, url, filename, updateSuccess, updateError }: But
           updateSuccess('Video successfully downloaded')
 
 				});
-		}).catch(function() {
-      updateError('Video could not be dowloaded')
+		}).catch(function(error) {
+      updateError(`${error}`)
     });
     
   };

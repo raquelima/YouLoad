@@ -1,6 +1,6 @@
 from typing import Union
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from fastapi.responses import FileResponse
 
@@ -56,7 +56,7 @@ def read_root(url: str):
             'thumbnail': thumbnail
         }
     except:
-        return "an error occurred"
+        raise HTTPException(status_code=500, detail="Video not found")
         
 
 @app.get("/downloadVideo")

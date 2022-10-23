@@ -13,43 +13,47 @@ const Main = (): JSX.Element => {
     videoTitle: '',
     channel: '',
     videoUrl: '',
-    thumbnail: ''
+    thumbnail: '',
   })
   const [parentError, setParentError] = useState('')
   const [parentSuccess, setParentSuccess] = useState('')
 
   const updateSuccess = (success: string) => {
-    setParentError('');
-    setParentSuccess(success);
+    setParentError('')
+    setParentSuccess(success)
   }
 
   const updateError = (error: string) => {
-    setParentSuccess('');
-    setParentError(error);
+    setParentSuccess('')
+    setParentError(error)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value)
   }
 
-  const handleClick = async () => {
+  const handleClick = () => {
     setVideoInformation({
       videoTitle: '',
       channel: '',
       videoUrl: '',
-      thumbnail: ''
+      thumbnail: '',
     })
     setParentError('')
     setParentSuccess('')
-    const res = await fetch(`http://127.0.0.1:8000/videoInformation?url=${url}`)
-    const resBody = await res.json()
 
-    if (resBody == 'an error occurred') {
-      setParentError('Video not found')
-    } else {
-      setParentSuccess('Video Found')
-      setVideoInformation(resBody)
-    }
+    fetch(`http://127.0.0.1:8000/videoInformation?url=${url}`)
+      .then(async function (res) {
+        if (res.ok) {
+          setParentSuccess('Video Found')
+          return setVideoInformation(await res.json())
+        }
+
+        throw new Error('Video not found')
+      })
+      .catch(function (error) {
+        setParentError(`${error}`)
+      })
   }
 
   return (
@@ -92,7 +96,16 @@ const Main = (): JSX.Element => {
             <SearchIcon />
           </Button>
         </Box>
-        {videoInformation.videoTitle && <YoutubeCard videoTitle={videoInformation.videoTitle} channel={videoInformation.channel} videoUrl={videoInformation.videoUrl} thumbnail={videoInformation.thumbnail} updateSuccess={updateSuccess} updateError={updateError}/>}
+        {videoInformation.videoTitle && (
+          <YoutubeCard
+            videoTitle={videoInformation.videoTitle}
+            channel={videoInformation.channel}
+            videoUrl={videoInformation.videoUrl}
+            thumbnail={videoInformation.thumbnail}
+            updateSuccess={updateSuccess}
+            updateError={updateError}
+          />
+        )}
       </Box>
     </Box>
   )

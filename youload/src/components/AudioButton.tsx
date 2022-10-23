@@ -34,8 +34,8 @@ const AudioButton = ({ options, url, filename, updateSuccess, updateError }: But
           updateSuccess('Audio successfully downloaded')
 
 				});
-		}).catch(function() {
-      updateError('Audio could not be dowloaded')
+		}).catch(function(error) {
+      updateError(`${error}`)
     });
     
   };
