@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -10,20 +10,19 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
 interface ButtonArgs {
-  title: string;
   options: string[];
-  url: string
+  url: string,
+  updateSuccess: (args: string) => void
+  updateError: (args: string) => void
 }
 
-const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
+const AudioButton = ({ options, url, updateSuccess, updateError }: ButtonArgs): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
 
   const handleClick = () => {
-    fetch(`//127.0.0.1:8000/downloadVideo?url=${url}&format=${options[selectedIndex]}`)
+    fetch(`//127.0.0.1:8000/downloadAudio?url=${url}&format=${options[selectedIndex]}`)
 			.then(response => {
 				response.blob().then(blob => {
 					const url = window.URL.createObjectURL(blob);
@@ -31,12 +30,12 @@ const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
 					a.href = url;
 					a.download = `employees.${options[selectedIndex]}`;
 					a.click();
-          setSuccess('Video successfully downloaded')
+          updateSuccess('Video successfully downloaded')
 
 				});
 		}).catch(function() {
-      setError('Could not download video')
-    });;
+      updateError('Video could not be dowloaded')
+    });
     
   };
 
@@ -80,7 +79,7 @@ const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
             },
           }}
         >
-          {title}
+          Audio
         </Button>
         <Button
           sx={{
@@ -140,4 +139,4 @@ const DownloadButton = ({ title, options, url }: ButtonArgs): JSX.Element => {
   );
 };
 
-export { DownloadButton };
+export { AudioButton };

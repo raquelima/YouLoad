@@ -5,7 +5,11 @@ import IconButton from '@mui/material/IconButton'
 import Collapse from '@mui/material/Collapse'
 import CloseIcon from '@mui/icons-material/Close'
 
-const AlertSuccess = (): JSX.Element => {
+export interface AlertArgs {
+  success: string
+}
+
+const AlertSuccess = ({success}:AlertArgs): JSX.Element => {
   const [open, setOpen] = React.useState(true)
 
   return (
@@ -27,7 +31,7 @@ const AlertSuccess = (): JSX.Element => {
           }
           sx={{ mb: 2 }}
         >
-          Video found
+          {success}
         </Alert>
       </Collapse>
     </Box>

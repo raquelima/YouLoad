@@ -9,37 +9,46 @@ import { AlertSuccess } from './AlertSuccess'
 
 const Main = (): JSX.Element => {
   const [url, setUrl] = useState('')
-  const [videoInformations, setVideoInformations] = useState({
+  const [videoInformation, setVideoInformation] = useState({
     videoTitle: '',
     channel: '',
     videoUrl: '',
     thumbnail: ''
   })
-  const [error, setError] = useState('')
+  const [parentError, setParentError] = useState('')
+  const [parentSuccess, setParentSuccess] = useState('')
 
-  const [success, setSuccess] = useState('')
+  const updateSuccess = (success: string) => {
+    setParentError('');
+    setParentSuccess(success);
+  }
+
+  const updateError = (error: string) => {
+    setParentSuccess('');
+    setParentError(error);
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value)
   }
 
   const handleClick = async () => {
-    setVideoInformations({
+    setVideoInformation({
       videoTitle: '',
       channel: '',
       videoUrl: '',
       thumbnail: ''
     })
-    setError('')
-    setSuccess('')
-    const res = await fetch(`http://127.0.0.1:8000/videoInformations?url=${url}`)
+    setParentError('')
+    setParentSuccess('')
+    const res = await fetch(`http://127.0.0.1:8000/videoInformation?url=${url}`)
     const resBody = await res.json()
 
     if (resBody == 'an error occurred') {
-      setError('Video not found')
+      setParentError('Video not found')
     } else {
-      setSuccess('Video Found')
-      setVideoInformations(resBody)
+      setParentSuccess('Video Found')
+      setVideoInformation(resBody)
     }
   }
 
@@ -51,8 +60,8 @@ const Main = (): JSX.Element => {
         alignItems: 'center',
       }}
     >
-      {error && <AlertError/>}
-      {success && <AlertSuccess/>}
+      {parentError && <AlertError error={parentError} />}
+      {parentSuccess && <AlertSuccess success={parentSuccess} />}
       <Box
         sx={{
           display: 'flex',
@@ -83,7 +92,7 @@ const Main = (): JSX.Element => {
             <SearchIcon />
           </Button>
         </Box>
-        {videoInformations.videoTitle && <YoutubeCard videoInformations={videoInformations} />}
+        {videoInformation.videoTitle && <YoutubeCard videoTitle={videoInformation.videoTitle} channel={videoInformation.channel} videoUrl={videoInformation.videoUrl} thumbnail={videoInformation.thumbnail} updateSuccess={updateSuccess} updateError={updateError}/>}
       </Box>
     </Box>
   )

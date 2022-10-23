@@ -28,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.get("/videoInformations")
+@app.get("/videoInformation")
 def read_root(url: str):
     ydl = youtube_dl.YoutubeDL({})
 

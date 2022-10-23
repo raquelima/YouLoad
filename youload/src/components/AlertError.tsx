@@ -5,7 +5,11 @@ import IconButton from '@mui/material/IconButton'
 import Collapse from '@mui/material/Collapse'
 import CloseIcon from '@mui/icons-material/Close'
 
-const AlertError = (): JSX.Element => {
+export interface AlertArgs {
+  error: string
+}
+
+const AlertError = ({error}:AlertArgs): JSX.Element => {
   const [open, setOpen] = React.useState(true)
 
   return (
@@ -27,7 +31,7 @@ const AlertError = (): JSX.Element => {
           }
           sx={{ mb: 2 }}
         >
-          Video not found
+          {error}
         </Alert>
       </Collapse>
     </Box>
