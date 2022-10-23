@@ -18,7 +18,10 @@ git clone https://github.com/raquelima/M152
 
 ### Frontend:
 
-The project has a python backend and a React frontend. First, we will set up the frontend. To do this, you have to navigate to the folder youload.
+The project has a python backend and a React frontend. First, we will set up the frontend. To do this, you have to navigate to the folder youload with the following command:
+```
+cd youload
+```
 
 Inside this folder, we need to run ```yarn install```.
 This will download all the dependencies.
@@ -45,7 +48,12 @@ py -mpip install --upgrade youtube-dl
 The last thing to download is FFmpeg. You can get it here. ([Download FFmpeg](https://ffmpeg.org/download.html))
 Make sure to add the executable to your environment variables
 
-To start the backend, navigate to youload/server and then execute this command:
+To start the backend, navigate to the server folder
+```
+cd youload/server
+```
+
+and then to start the server execute this command:
 ```
 py -m uvicorn main:app --reload
 ```
