@@ -8,7 +8,7 @@
 
 ## Installation
 
-To install YouLoad you need to clone out GitHub repository.
+To install YouLoad you need to clone the GitHub repository.
 (https://github.com/raquelima/M152)
 
 Command: 
